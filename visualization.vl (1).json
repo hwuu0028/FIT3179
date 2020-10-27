@@ -1,10 +1,15 @@
 {
   "$schema": "https://vega.github.io/schema/vega-lite/v4.json",
-  "data": {"url": "FIT3179/Frog_Census_Records.csv"},
+  "data": {"url": "https://raw.githubusercontent.com/hwuu0028/FIT3179/main/Frog_Census_Records.csv"},
   "mark": "bar",
   "encoding": {
-    "x": {"bin": true, "field": "IMDB Rating"},
-    "y": {"aggregate": "count"}
-  },
-  "config": {}
+    "x": {
+      "field": "Scientific_name",
+      "sort": "-y"
+    },
+    "y": {"aggregate": "count"},
+    "color": {
+      "field": "Scientific_name"
+    }
+  }
 }
