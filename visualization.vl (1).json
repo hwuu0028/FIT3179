@@ -1,6 +1,6 @@
 {
   "$schema": "https://vega.github.io/schema/vega-lite/v4.json",
-  "data": {"url": "data/movies.json"},
+  "data": {"url": "FIT3179/Frog_Census_Records.csv"},
   "mark": "bar",
   "encoding": {
     "x": {"bin": true, "field": "IMDB Rating"},
