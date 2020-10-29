@@ -1,4 +1,4 @@
-year,country,state,State names,lng,lat,type,Sum of population,Average of beds
+year,country,state,State names,lng,lat,type,Population,Avebeds
 2012,US,AR,Arkansas,-91.831833,35.20105,ACUTE,73643,3.0111035
 2012,US,GA,Georgia,-82.907123,32.157435,ACUTE,265356,1.838488
 2012,US,IA,Iowa,-93.097702,41.878003,ACUTE,125302,2.512541833
