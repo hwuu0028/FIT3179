@@ -1,368 +1,59 @@
 {
-  "$schema": "https://vega.github.io/schema/vega/v5.json",
-  "background": "white",
-  "padding": 5,
-  "width": 500,
-  "height": 400,
-  "title": {"text": "Number of Hospital Beds per State", "frame": "group"},
-  "style": "cell",
-  "data": [
-    {"name": "state_highlight_store"},
-    {"name": "type_highlight_store"},
-    {
-      "name": "source_0",
-      "url": "https://raw.githubusercontent.com/hwuu0028/FIT3179/main/hospital_beds_USA_v1.csv",
-      "format": {"type": "csv", "delimiter": ","},
-      "transform": [
-        {
-          "type": "filter",
-          "expr": "State_selection == null || datum.StateNames == State_selection"
-        },
-        {
-          "type": "filter",
-          "expr": "isValid(datum[\"AveBeds\"]) && isFinite(+datum[\"AveBeds\"]) && isValid(datum[\"Population\"]) && isFinite(+datum[\"Population\"])"
-        }
-      ]
-    }
-  ],
-  "signals": [
-    {
-      "name": "unit",
-      "value": {},
-      "on": [
-        {"events": "mousemove", "update": "isTuple(group()) ? group() : unit"}
-      ]
-    },
-    {
-      "name": "type_highlight_Type_legend",
-      "value": null,
-      "on": [
-        {
-          "events": [
-            {
-              "source": "view",
-              "type": "click",
-              "markname": "Type_legend_symbols"
-            },
-            {
-              "source": "view",
-              "type": "click",
-              "markname": "Type_legend_labels"
-            },
-            {
-              "source": "view",
-              "type": "click",
-              "markname": "Type_legend_entries"
-            }
-          ],
-          "update": "datum.value || item().items[0].items[0].datum.value",
-          "force": true
-        },
-        {
-          "events": [{"source": "view", "type": "click"}],
-          "update": "!event.item || !datum ? null : type_highlight_Type_legend",
-          "force": true
-        }
-      ]
-    },
-    {
-      "name": "state_highlight",
-      "update": "vlSelectionResolve(\"state_highlight_store\", \"union\")"
-    },
-    {
-      "name": "type_highlight",
-      "update": "vlSelectionResolve(\"type_highlight_store\", \"union\")"
-    },
-    {
-      "name": "State_selection",
-      "bind": {
-        "input": "select",
-        "options": [
-          null,
-          "Alabama",
-          "Alaska",
-          "Arizona",
-          "Arkansas",
-          "California",
-          "Colorado",
-          "Connecticut",
-          "Delaware",
-          "District of Columbia",
-          "Florida",
-          "Georgia",
-          "Hawaii",
-          "Idaho",
-          "Illinois",
-          "Indiana",
-          "Iowa",
-          "Kansas",
-          "Kentucky",
-          "Louisiana",
-          "Maine",
-          "Maryland",
-          "Massachusetts",
-          "Michigan",
-          "Minnesota",
-          "Mississippi",
-          "Missouri",
-          "Montana",
-          "Nebraska",
-          "Nevada",
-          "New Hampshire",
-          "New Jersey",
-          "New Mexico",
-          "New York",
-          "North Carolina",
-          "North Dakota",
-          "Ohio",
-          "Oklahoma",
-          "Oregon",
-          "Pennsylvania",
-          "Rhode Island",
-          "South Carolina",
-          "South Dakota",
-          "Tennessee",
-          "Texas",
-          "Utah",
-          "Vermont",
-          "Virginia",
-          "Washington",
-          "West Virginia",
-          "Wisconsin",
-          "Wyoming"
-        ],
-        "labels": [
-          "Show All",
-          "Alabama",
-          "Alaska",
-          "Arizona",
-          "Arkansas",
-          "California",
-          "Colorado",
-          "Connecticut",
-          "Delaware",
-          "District of Columbia",
-          "Florida",
-          "Georgia",
-          "Hawaii",
-          "Idaho",
-          "Illinois",
-          "Indiana",
-          "Iowa",
-          "Kansas",
-          "Kentucky",
-          "Louisiana",
-          "Maine",
-          "Maryland",
-          "Massachusetts",
-          "Michigan",
-          "Minnesota",
-          "Mississippi",
-          "Missouri",
-          "Montana",
-          "Nebraska",
-          "Nevada",
-          "New Hampshire",
-          "New Jersey",
-          "New Mexico",
-          "New York",
-          "North Carolina",
-          "North Dakota",
-          "Ohio",
-          "Oklahoma",
-          "Oregon",
-          "Pennsylvania",
-          "Rhode Island",
-          "South Carolina",
-          "South Dakota",
-          "Tennessee",
-          "Texas",
-          "Utah",
-          "Vermont",
-          "Virginia",
-          "Washington",
-          "West Virginia",
-          "Wisconsin",
-          "Wyoming"
-        ],
-        "name": "State Selection: "
+  "$schema": "https://vega.github.io/schema/vega-lite/v4.json",
+  "description": "A simple bar chart with embedded data.",
+  "data": {
+    "values": [
+      {
+        "a": "A",
+        "b": 28
+      },
+      {
+        "a": "B",
+        "b": 55
+      },
+      {
+        "a": "C",
+        "b": 43
+      },
+      {
+        "a": "D",
+        "b": 91
+      },
+      {
+        "a": "E",
+        "b": 81
+      },
+      {
+        "a": "F",
+        "b": 53
+      },
+      {
+        "a": "G",
+        "b": 19
+      },
+      {
+        "a": "H",
+        "b": 87
+      },
+      {
+        "a": "I",
+        "b": 52
+      }
+    ]
+  },
+  "mark": "bar",
+  "encoding": {
+    "x": {
+      "field": "a",
+      "type": "nominal",
+      "axis": {
+        "labelAngle": 0
       }
     },
-    {"name": "state_highlight_tuple"},
-    {
-      "name": "state_highlight_tuple_fields",
-      "value": [{"type": "E", "field": "StateNames"}]
-    },
-    {
-      "name": "state_highlight_modify",
-      "on": [
-        {
-          "events": {"signal": "state_highlight_tuple"},
-          "update": "modify(\"state_highlight_store\", state_highlight_tuple, true)"
-        }
-      ]
-    },
-    {
-      "name": "type_highlight_tuple",
-      "update": "type_highlight_Type_legend !== null ? {fields: type_highlight_tuple_fields, values: [type_highlight_Type_legend]} : null"
-    },
-    {
-      "name": "type_highlight_tuple_fields",
-      "value": [{"type": "E", "field": "Type"}]
-    },
-    {
-      "name": "type_highlight_modify",
-      "on": [
-        {
-          "events": {"signal": "type_highlight_tuple"},
-          "update": "modify(\"type_highlight_store\", type_highlight_tuple, true)"
-        }
-      ]
+    "y": {
+      "field": "b",
+      "type": "quantitative"
     }
-  ],
-  "marks": [
-    {
-      "name": "marks",
-      "type": "symbol",
-      "style": ["circle"],
-      "interactive": true,
-      "from": {"data": "source_0"},
-      "encode": {
-        "update": {
-          "opacity": [
-            {
-              "test": "!(length(data(\"type_highlight_store\"))) || (vlSelectionTest(\"type_highlight_store\", datum))",
-              "value": 0.9
-            },
-            {"value": 0.2}
-          ],
-          "fill": {"scale": "color", "field": "Type"},
-          "tooltip": {
-            "signal": "{\"State\": isValid(datum[\"StateNames\"]) ? datum[\"StateNames\"] : \"\"+datum[\"StateNames\"], \"Year\": format(datum[\"Year\"], \"\"), \"Average Beds per 1000\": format(datum[\"AveBeds\"], \".2f\"), \"Population\": format(datum[\"Population\"], \",\")}"
-          },
-          "ariaRoleDescription": {"value": "circle"},
-          "description": {
-            "signal": "\"Number of Beds per 1000 Inhabitants: \" + (format(datum[\"AveBeds\"], \"\")) + \"; Population: \" + (format(datum[\"Population\"], \"\")) + \"; Type: \" + (isValid(datum[\"Type\"]) ? datum[\"Type\"] : \"\"+datum[\"Type\"]) + \"; State: \" + (isValid(datum[\"StateNames\"]) ? datum[\"StateNames\"] : \"\"+datum[\"StateNames\"]) + \"; Year: \" + (format(datum[\"Year\"], \"\")) + \"; Average Beds per 1000: \" + (format(datum[\"AveBeds\"], \".2f\"))"
-          },
-          "x": {"scale": "x", "field": "AveBeds"},
-          "y": {"scale": "y", "field": "Population"},
-          "shape": {"value": "circle"}
-        }
-      }
-    }
-  ],
-  "scales": [
-    {
-      "name": "x",
-      "type": "linear",
-      "domain": [0, 12],
-      "range": [0, {"signal": "width"}],
-      "nice": true,
-      "zero": true
-    },
-    {
-      "name": "y",
-      "type": "linear",
-      "domain": {"data": "source_0", "field": "Population"},
-      "range": [{"signal": "height"}, 0],
-      "nice": true,
-      "zero": true
-    },
-    {
-      "name": "color",
-      "type": "ordinal",
-      "domain": {"data": "source_0", "field": "Type", "sort": true},
-      "range": "category"
-    }
-  ],
-  "axes": [
-    {
-      "scale": "x",
-      "orient": "bottom",
-      "tickCount": 10,
-      "gridScale": "y",
-      "grid": true,
-      "domain": false,
-      "labels": false,
-      "aria": false,
-      "maxExtent": 0,
-      "minExtent": 0,
-      "ticks": false,
-      "zindex": 0
-    },
-    {
-      "scale": "y",
-      "orient": "left",
-      "gridScale": "x",
-      "grid": true,
-      "tickCount": {"signal": "ceil(height/40)"},
-      "domain": false,
-      "labels": false,
-      "aria": false,
-      "maxExtent": 0,
-      "minExtent": 0,
-      "ticks": false,
-      "zindex": 0
-    },
-    {
-      "scale": "x",
-      "orient": "bottom",
-      "grid": false,
-      "title": "Number of Beds per 1000 Inhabitants",
-      "tickCount": 10,
-      "labelFlush": true,
-      "labelOverlap": true,
-      "zindex": 0
-    },
-    {
-      "scale": "y",
-      "orient": "left",
-      "grid": false,
-      "title": "Population",
-      "labelOverlap": true,
-      "tickCount": {"signal": "ceil(height/40)"},
-      "zindex": 0
-    }
-  ],
-  "legends": [
-    {
-      "fill": "color",
-      "symbolType": "circle",
-      "title": "Type",
-      "encode": {
-        "labels": {
-          "name": "Type_legend_labels",
-          "interactive": true,
-          "update": {
-            "opacity": [
-              {
-                "test": "(!length(data(\"type_highlight_store\")) || (type_highlight[\"Type\"] && indexof(type_highlight[\"Type\"], datum.value) >= 0))",
-                "value": 1
-              },
-              {"value": 0.35}
-            ]
-          }
-        },
-        "symbols": {
-          "name": "Type_legend_symbols",
-          "interactive": true,
-          "update": {
-            "opacity": [
-              {
-                "test": "(!length(data(\"type_highlight_store\")) || (type_highlight[\"Type\"] && indexof(type_highlight[\"Type\"], datum.value) >= 0))",
-                "value": 0.9
-              },
-              {"value": 0.35}
-            ]
-          }
-        },
-        "entries": {
-          "name": "Type_legend_entries",
-          "interactive": true,
-          "update": {"fill": {"value": "transparent"}}
-        }
-      }
-    }
-  ],
+  },
   "config": {}
 }
