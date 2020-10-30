@@ -160,6 +160,5 @@
       },
       {"field": "Population", "type": "quantitative", "format": ","}
     ]
-  },
-  "config": {}
+  }
 }
